@@ -14,7 +14,9 @@ ui <- dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
-      menuItem("second part", tabName = "secondpart", icon = icon("th"))
+      menuItem("second section", tabName = "secondsection", icon = icon("th")),
+      menuItem("third section", tabName = "thirdsection", icon = icon("th")),
+      menuItem("fourth section", tabName = "fourthsection", icon = icon("th"))
       
     )
   ),
@@ -81,11 +83,22 @@ ui <- dashboardPage(
                 )
               )
       ),
-      tabItem(tabName = "secondpart",
+      tabItem(tabName = "secondsection",
               fluidPage(
                 h2("content is here")
               )
+      ),
+      tabItem(tabName = "thirdsection",
+              fluidPage(
+                h2("content is here")
+              )
+      ), 
+      tabItem(tabName = "fourthsection",
+                 fluidPage(
+                   h2("content is here")
+                 )
       )
+      
       #second interface is here
       
     )
@@ -102,7 +115,7 @@ server <- function(input, output, session) {
   
   
   #owmr_settings(Sys.getenv("OWM_API_KEY"))
-  
+ 
   #current weather
   data_current <- reactive({
     id <- strtoi(input$select)
@@ -126,8 +139,11 @@ server <- function(input, output, session) {
   
   
   # map leaflet
-  
+ 
   output$map <- renderLeaflet({
+    invalidateLater(60000, session)
+    
+    
     weather <- data_current()
     weatherIcon= makeIcon(iconUrl=paste0(weather$weather[4]$icon,".svg"),iconWidth=40,iconHeight=40)
     
@@ -153,6 +169,7 @@ server <- function(input, output, session) {
   })
   #les infobox(cards)
   output$tempBox <- renderInfoBox({
+    invalidateLater(60000, session)
     weather <- data_current()
     infoBox(
       "Temperature", paste0(format(weather$main$temp-273.15, digits = 2), " °C"), icon = icon("temperature-low", lib = "font-awesome"),
@@ -160,6 +177,7 @@ server <- function(input, output, session) {
     )
   })
   output$weatherMainBox <- renderInfoBox({
+    invalidateLater(60000, session)
     weather <- data_current()
     infoBox(
       "Weather main", paste0(weather$weather[3]$description),icon = icon("sun", lib = "font-awesome"),
@@ -167,9 +185,10 @@ server <- function(input, output, session) {
     )
   })
   output$feelTempBox <- renderInfoBox({
+    invalidateLater(60000, session)
     weather <- data_current()
     infoBox(
-      "Visibilité ", paste0(format(weather$visibility/1000), "Km"), icon = icon("eye", lib = "font-awesome"),
+      "Visibilité ", paste0(format(weather$visibility/1000), " Km"), icon = icon("eye", lib = "font-awesome"),
       color = "blue"
     )
   })
@@ -177,6 +196,7 @@ server <- function(input, output, session) {
   
   # Same as above, but with fill=TRUE
   output$pressureBox <- renderInfoBox({
+    invalidateLater(60000, session)
     weather <- data_current()
     infoBox(
       "Pression", paste0(weather$main$pressure, " hpa"), icon = icon("area-chart"),
@@ -184,6 +204,7 @@ server <- function(input, output, session) {
     )
   })
   output$humidityBox <- renderInfoBox({
+    invalidateLater(60000, session)
     weather <- data_current()
     infoBox(
       "Humidity", paste0(weather$main$humidity, " %"), icon = icon("droplet", lib = "font-awesome"),
@@ -191,6 +212,7 @@ server <- function(input, output, session) {
     )
   })
   output$windBox <- renderInfoBox({
+    invalidateLater(60000, session)
     weather <- data_current()
     infoBox(
       "Vent", paste0(weather$wind$speed, " Km/h"), icon = icon("wind", lib = "font-awesome"),
@@ -200,6 +222,7 @@ server <- function(input, output, session) {
   
   # les graphes
   output$hcontainer <- renderHighchart({
+    invalidateLater(60000, session)
     weather_forecast_data <- data_forecast()
     weather_forecast <- as_tibble(weather_forecast_data$list)
     #weather_forecast$new_date <- ymd_hms(weather_forecast$dt_txt)
