@@ -5,19 +5,22 @@ library("lubridate")
 library(plotly)
 
 
-
+# Liste des villes
 townList <-  c("Paris", "Nice","Strasbourg", "Bordeaux", "Le Havre", "Lille", 
                "Angers","Brest","Marseille", "Toulouse", "Nantes", "Montpellier", 
                "Rennes", "Dijon", "Amiens","Rouen")
-#fetch data
-mydatabase <- mongo ("Paris", url="mongodb://127.0.0.1:27017/AirDB6")
+
+# Récupération des données par défaut (Paris)
+
+# connexion à la base de données Mongo
+mydatabase <- mongo ("Paris", url="mongodb://127.0.0.1:27017/AirDB7")
+# récupérer les données nécessaires
 result <- mydatabase$find( '{}', fields='{"hourly_time": true,"hourly_pm2_5":true,"hourly_carbon_monoxide":true,"hourly_nitrogen_dioxide":true,"hourly_sulphur_dioxide":true,"hourly_ozone":true, "hourly_pm10" : true , "_id" : false }' )
 units <- mydatabase$find('{}', fields='{"hourly_units_european_aqi":true ,"hourly_units_pm10":true, "hourly_units_pm2_5":true, "hourly_units_carbon_monoxide":true ,"hourly_units_nitrogen_dioxide":true, "hourly_units_sulphur_dioxide":true, "hourly_units_ozone":true,"_id" : false}', limit=1)
 resultEAQI <- mydatabase$find('{}', fields='{"hourly_european_aqi":true, "_id" : false}')
 
 
-print(result)
-
+# récupérer les données du jour
 pm2_5 <- result$hourly_pm2_5[1:24]
 #carbon monoxide
 no <- result$hourly_carbon_monoxide[1:24]
@@ -35,7 +38,7 @@ sidebar <- dashboardSidebar(
   sidebarMenu(
     menuItem("DashboardMeteo", tabName = "dashboardMeteo", icon = icon("dashboard")),
     menuItem("AirQuality", icon = icon("th"), tabName = "AirQuality",
-              badgeColor = "green")
+             badgeColor = "green")
   )
 )
 body <- dashboardBody(
@@ -49,14 +52,14 @@ body <- dashboardBody(
             fluidRow(
               column(1,NULL) ,
               column(12 ,box(background="blue", selectInput("town", "Choose a city :", townList),
-              textOutput("result")))
-              ),
-              
-              
+                             textOutput("result")))
+            ),
+            
+            
             h3(" Main polluants values for today "),
             br(),
             fluidRow(
-      
+              
               infoBoxOutput("PM10", width=4),
               infoBoxOutput("PM2_5", width=4),
               infoBoxOutput("NO2", width=4),
@@ -65,58 +68,58 @@ body <- dashboardBody(
               infoBoxOutput("SO2", width=4)
             ),
             
-          br(),
-          br(),
-          h3("LINE GRAPHS"),
-          br(),
-          
+            br(),
+            br(),
+            h3("LINE GRAPHS"),
+            br(),
+            
             fluidRow(
-             column(1,NULL) ,
-          column(10,box(background="blue", dateInput("date", "Choose a day , current day + (0, 4) days:", value = Sys.Date(), min=Sys.Date(), max=Sys.Date()+4 ))),
-            
-            
-            
-            
-        
-                     textOutput("er")) ,
+              column(1,NULL) ,
+              column(10,box(background="blue", dateInput("date", "Choose a day , current day + (0, 4) days:", value = Sys.Date(), min=Sys.Date(), max=Sys.Date()+4 ))),
               
-          fluidRow(
-            column(1,NULL),
-             column(10,box( title = "line Graph",background = "blue", solidHeader = TRUE,width=12,height=500,
-             box(width=12,plotlyOutput("plots"))),
-          
+              
+              
+              
+              
+              textOutput("er")) ,
+            
+            fluidRow(
+              column(1,NULL),
+              column(10,box( title = "line Graph",background = "blue", solidHeader = TRUE,width=12,height=500,
+                             box(width=12,plotlyOutput("plots"))),
+                     
               ),
               column(1,NULL)),
-          
-          br(),
-          br(),
-          h3("Europen air quality index AQI "),
-          br(),
-          fluidRow(
             
-           column(8, infoBoxOutput("eaqi", width=4)),
-           #column(tags$img(src="aqi.png", height=230, width="100%", hspace="10")),
-          ),
-          fluidRow(
-            column(width=7,
-                   tags$h3(" How is the AQI calculated"),
-                   tags$h4(width=5,"A pollutants index value is basically its concentration which is expressed in measuring units. The goal
+            br(),
+            br(),
+            h3("Europen air quality index AQI "),
+            br(),
+            fluidRow(
+              
+              column(8, infoBoxOutput("eaqi", width=4)),
+              #column(tags$img(src="aqi.png", height=230, width="100%", hspace="10")),
+            ),
+            fluidRow(
+              column(width=7,
+                     tags$h3(" How is the AQI calculated"),
+                     tags$h4(width=5,"A pollutants index value is basically its concentration which is expressed in measuring units. The goal
                                  is to convert the pollutant concentration into a number between 0 and 500.  The AQIs of 0, 50, 100, 150...500
                                  is referred to as breakpoints.Each AQI breakpoint corresponds to a defined pollution concentration. Using the 
                                  breakpoint value of each pollutant and its ambient concentration the sub index value is calculated. The sub 
                                  index for a given pollutant is calculatedusing linear segmented principle. The overall AQI is expressed by the highest sub-index.")),
-            column(5, tags$img(src="aqi.png", height=230, width="100%", hspace="10")),
-          ),
-          
-    
+              column(5, tags$img(src="aqi.png", height=230, width="100%", hspace="10")),
+            ),
+            
+            
     )))
-             
-              
-              
-          
-           
-           
-   
+
+
+
+
+
+
+
 
 
 
@@ -130,32 +133,32 @@ ui <- dashboardPage(
 server <- function(input, output) { 
   pm10 <- result$hourly_pm10[1:24]
   output$result <- renderText({
-   #= print( input$town)
+    #= print( input$town)
     
     
     
   })
   
   
-  
+  # Pour mettre à jour
   observe ({
     
     xx <- as.Date(input$date)
-    
     ss <- xx - Sys.Date()
     dd <- as.integer(ss)
     
-    mydata <- mongo (input$town , url="mongodb://127.0.0.1:27017/AirDB4")
+    # connexion à mongoDB et récupérer les données de la ville sélectionnée
+    mydata <- mongo (input$town , url="mongodb://127.0.0.1:27017/AirDB7")
     
     result <- mydata$find( '{}', fields='{"hourly_time": true,"hourly_pm2_5":true,"hourly_carbon_monoxide":true,"hourly_nitrogen_dioxide":true,"hourly_sulphur_dioxide":true,"hourly_ozone":true, "hourly_pm10" : true , "_id" : false }' )
-    #print(result)
+    
     units <- mydata$find('{}', fields='{"hourly_units_european_aqi":true ,"hourly_units_pm10":true, "hourly_units_pm2_5":true, "hourly_units_carbon_monoxide":true ,"hourly_units_nitrogen_dioxide":true, "hourly_units_sulphur_dioxide":true, "hourly_units_ozone":true,"_id" : false}', limit=1)
     resultEAQI <- mydata$find('{}', fields='{"hourly_european_aqi":true, "_id" : false}')
     
     limitLeft <- 1 + 24*dd
     limitRight <- 24 + 24*dd
-    pm10<- result$hourly_pm10[limitLeft: limitRight]+4
-    print(pm10)
+    pm10<- result$hourly_pm10[limitLeft: limitRight]
+    
     pm2_5 <- result$hourly_pm2_5[limitLeft:limitRight]
     #carbon monoxide
     no <- result$hourly_carbon_monoxide[limitLeft:limitRight]
@@ -323,14 +326,14 @@ server <- function(input, output) {
     
     
     
-    })
+  })
   
   
- 
   
-
   
- 
+  
+  
+  
 }
 
 shinyApp(ui, server)

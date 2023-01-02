@@ -25,8 +25,8 @@ for ( ville  in townList) {
   furll <- paste(url  ,"&start_date=",start_date, "&end_date=", end_date, sep="")
   print(furll)
   vector_data <- as.data.frame(fromJSON(furll))
-  con <- mongo (ville , url="mongodb://127.0.0.1:27017/AirDB6")
-  con$drop()
+  con <- mongo (ville , url="mongodb://127.0.0.1:27017/AirDB7")
+  con$remove('{}')
   con$insert(vector_data)
 }
 
