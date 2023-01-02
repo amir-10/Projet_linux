@@ -1,7 +1,6 @@
 ## app.R ##
 library(shiny)
 library(shinydashboard)
-library(owmr)
 require(highcharter)
 library(dplyr)
 library(httr)
