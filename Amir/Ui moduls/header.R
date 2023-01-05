@@ -1,1 +1,1 @@
-dashboardheader <- dashboardHeader(title = "France's weather")
+dashboardheader <- dashboardHeader(title = "France Dashboard")
