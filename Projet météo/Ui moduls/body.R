@@ -60,7 +60,10 @@ body <-  dashboardBody(
                        selectInput("select", label = h5("selectionnez une ville"), 
                                    choices = list("Paris" =2988507, "Strasbourg" =2973783, "Lille"=2998324,
                                                   "Marseille"=2995468, "Nice"=2990439,"Lyon"=2996943,
-                                                  "Bordeaux"=3031582,"Toulouse"=2972315, "Rouen"=2982652), 
+                                                  "Bordeaux"=3031582,"Toulouse"=2972315, "Rouen"=2982652,
+                                                  "Le Havre"=3003796, "Angers"=3037656, "Brest"=6448047,
+                                                  "Nîmes"=2990362, "Montpellier"=2992166, "Rennes"=2983989,
+                                                  "Saint-Étienne"=2980288, "Dijon"=3021372, "Amiens"=3037854), 
                                    selected = 1)
                        
                        

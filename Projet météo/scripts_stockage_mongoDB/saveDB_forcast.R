@@ -62,7 +62,7 @@ forcast=data$list
 
 # creation d'une collection forcast
 
-forcastCollection = mongo(collection = "forcast", db = "test")  
+forcastCollection = mongo(collection = "forcast", db = "AKZN")  
 # get first document
 
 #df2 = forcastCollection$find(limit=1)

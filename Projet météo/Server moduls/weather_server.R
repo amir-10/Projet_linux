@@ -4,7 +4,7 @@ weather_server <- function(input,output,session) {
 #current weather
 data_current <- reactive({
   id <- strtoi(input$select)
-  weatherCollection = mongo(collection = "CWeather", db = "test") 
+  weatherCollection = mongo(collection = "CWeather", db = "AKZN") 
   data=weatherCollection$find(
     query = paste0('
         { 
@@ -25,7 +25,7 @@ data_forecast <- reactive({
   #print(res$content)
   #data = fromJSON(rawToChar(res$content))
   #get_forecast(id,units = "metric")
-  forcastCollection = mongo(collection = "forcast", db = "test")  
+  forcastCollection = mongo(collection = "forcast", db = "AKZN")  
   data=forcastCollection$find(
     query = paste0('
           { 

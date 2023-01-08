@@ -15,7 +15,7 @@ villes=c("Paris","Lyon","Nice",
          "Marseille",
          "Toulouse",
          "Nantes",
-         "Montpellier",
+         "Montpellier",  
          "Rennes",
          "Saint-Étienne",
          "Dijon",
@@ -36,7 +36,7 @@ codeville=c(2988507,
             2995468,
             2972315,
             2990968,
-            2992166,
+            2992166,  
             2983989,
             2980288,
             3021372,
@@ -86,7 +86,7 @@ for (item in  codeville) {
   
   # creation d'une collection forcast
   
-  weatherCollection = mongo(collection = "CWeather", db = "test")  
+  weatherCollection = mongo(collection = "CWeather", db = "AKZN")  
   # get first document
   
   
