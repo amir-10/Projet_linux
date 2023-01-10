@@ -37,13 +37,14 @@ horoscope_server <- function(input, output){
   
   #compatibility -
   output$compatibility <- renderInfoBox(
-    infoBox(
-      title = "Compatible with ",
-      value = (signdb$find( paste0( '{ "sign_name" : "', my_sign(), '" }' ) ) )$compatibility,
-      icon = icon("heart"),
-      color = "maroon"
-      #value subtitle fill ...
-    )
+     infoBox(
+       title = "Compatible with ",
+       value = (signdb$find( paste0( '{ "sign_name" : "', my_sign(), '" }' ) ) )$compatibility,
+       icon = icon("heart"),
+       color = "maroon"
+       #value subtitle fill ...
+     )
+   
   )
   
   #mood -
@@ -85,7 +86,7 @@ horoscope_server <- function(input, output){
   output$lucky_time <- renderValueBox(
     valueBox(
       value = (signdb$find( paste0( '{ "sign_name" : "', my_sign(), '" }' ) ) )$lucky_time,
-      subtitle =  "is your lucky time ",
+      subtitle =  HTML( paste(p("is your lucky time"),HTML('&nbsp;'))),
       icon = icon("clock", lib = "font-awesome"),
       color = "purple"
     )

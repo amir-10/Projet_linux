@@ -30,6 +30,7 @@ townList <-  c("Paris", "Nice","Strasbourg", "Bordeaux", "Le Havre", "Lille",
 
 
 
+
 #################### end ########
 body <-  dashboardBody(
   
@@ -37,21 +38,15 @@ body <-  dashboardBody(
     tabItem(tabName = "dashboard",
             fluidPage(
               fluidRow(
-                 
                 column(width = 4,
                        selectInput("select", label = h5("selectionnez une ville"), 
-                                   choices = list("Paris" =2988507, "Strasbourg" =2973783, "Lille"=2998324,
+                                   choices = list("Paris" =2988507, "Strasbourg" =2973783,
                                                   "Marseille"=2995468, "Nice"=2990439,"Lyon"=2996943,
                                                   "Bordeaux"=3031582,"Toulouse"=2972315, "Rouen"=2982652,
                                                   "Le Havre"=3003796, "Angers"=3037656, "Brest"=6448047,
-                                                  "Nîmes"=2990362, "Montpellier"=2992166, "Rennes"=2983989,
-                                                  "Saint-Étienne"=2980288, "Dijon"=3021372, "Amiens"=3037854), 
+                                                   "Montpellier"=2992166, "Rennes"=2983989,
+                                                   "Dijon"=3021372, "Amiens"=3037854), 
                                    selected = 1)
-                       
-               
-                       
-               
-                
                        
                        
                 )
@@ -119,26 +114,25 @@ body <-  dashboardBody(
                                        toupper(si)
                                      ))
                                    }, SIMPLIFY = FALSE, USE.NAMES = FALSE )
-                                 ),
-                                 width = 'auto'
-                                  
+                                 ), 
+                                 width = "auto"
                      )
                      
                      ##here the pickerInput ends
               ),  #here ends the column
               column(width= 1),
               
+              
               column(
-                offset = 1,
-                width = 5,
                 
-               
+                width = 5,
+                offset= 1,
                 box(
                   height = "25%", width = "auto", align = "center",
-                   background = "navy", solidHeader = TRUE,
-                   em(h3(textOutput("my_sign"))),
-                   imageOutput("preImage", height = "25%")
-                  
+                  background = "navy", solidHeader = TRUE,
+                  em(h3(textOutput("my_sign"))),
+                  imageOutput("preImage",  height = "25%" )
+                 
                 ),
               )
               
@@ -156,33 +150,32 @@ body <-  dashboardBody(
             ),
             
             fluidRow(
-              column(width = 4,infoBoxOutput(width = 12,"pressureBox")) ,
               column(
-                #offset = 3,
-                width = 4,
+                offset = 1,
+                width = 5,
                 infoBoxOutput("compatibility", width = 12),
                 
               ),
               column(
-                offset = 1,
-                width = 3,
-                infoBoxOutput("mood", width = 10)
+                #offset = 1,
+                width = 5,
+                infoBoxOutput("mood", width = 12)
               )
             ),
             
             fluidRow(
               column(
-                offset  = 2,
+                #offset  = 2,
                 width = 3,
-                valueBoxOutput("lucky_nb", width = 10)
+                valueBoxOutput("lucky_nb", width = 12)
+              ),
+              column(
+                width = 5,
+                infoBoxOutput("lucky_color", width = 12)
               ),
               column(
                 width = 3,
-                infoBoxOutput("lucky_color", width = 10)
-              ),
-              column(
-                width = 3,
-                valueBoxOutput("lucky_time", width = 10)
+                valueBoxOutput("lucky_time", width = 12)
               )
               
             )
@@ -216,7 +209,7 @@ body <-  dashboardBody(
             
             fluidRow(
               column(1,NULL) ,
-              column(10,box(background="blue", dateInput("date", "Choose a day , current day + (0, 4) days:", value = Sys.Date(), min=Sys.Date(), max=Sys.Date()+4 ))),
+              column(10,box(background="blue", dateInput("date", "Choose a day , current day + (0, 3) days:", value = Sys.Date(), min=Sys.Date(), max=Sys.Date()+3 ))),
               
               
               
@@ -239,7 +232,7 @@ body <-  dashboardBody(
             fluidRow(
               
               column(8, infoBoxOutput("eaqi", width=4)),
-              #column(tags$img(src="aqi.png", height=230, width="100%", hspace="10")),
+              
             ),
             fluidRow(
               column(width=7,
@@ -248,7 +241,7 @@ body <-  dashboardBody(
                                  is to convert the pollutant concentration into a number between 0 and 500.  The AQIs of 0, 50, 100, 150...500
                                  is referred to as breakpoints.Each AQI breakpoint corresponds to a defined pollution concentration. Using the 
                                  breakpoint value of each pollutant and its ambient concentration the sub index value is calculated. The sub 
-                                 index for a given pollutant is calculatedusing linear segmented principle. The overall AQI is expressed by the highest sub-index.")),
+                                 index for a given pollutant is calculated using linear segmented principle. The overall AQI is expressed by the highest sub-index.")),
               column(5, tags$img(src="aqi.png", height=230, width="100%", hspace="10")),
             ),
             
