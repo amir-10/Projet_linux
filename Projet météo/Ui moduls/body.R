@@ -28,26 +28,7 @@ townList <-  c("Paris", "Nice","Strasbourg", "Bordeaux", "Le Havre", "Lille",
                "Angers","Brest","Marseille", "Toulouse", "Nantes", "Montpellier", 
                "Rennes", "Dijon", "Amiens","Rouen")
 
-# Récupération des données par défaut (Paris)
 
-# connexion à la base de données Mongo
-mydatabase <- mongo ("Paris", url="mongodb://127.0.0.1:27017/AKZN")
-# récupérer les données nécessaires
-result <- mydatabase$find( '{}', fields='{"hourly_time": true,"hourly_pm2_5":true,"hourly_carbon_monoxide":true,"hourly_nitrogen_dioxide":true,"hourly_sulphur_dioxide":true,"hourly_ozone":true, "hourly_pm10" : true , "_id" : false }' )
-units <- mydatabase$find('{}', fields='{"hourly_units_european_aqi":true ,"hourly_units_pm10":true, "hourly_units_pm2_5":true, "hourly_units_carbon_monoxide":true ,"hourly_units_nitrogen_dioxide":true, "hourly_units_sulphur_dioxide":true, "hourly_units_ozone":true,"_id" : false}', limit=1)
-resultEAQI <- mydatabase$find('{}', fields='{"hourly_european_aqi":true, "_id" : false}')
-
-
-# récupérer les données du jour
-pm2_5 <- result$hourly_pm2_5[1:24]
-#carbon monoxide
-no <- result$hourly_carbon_monoxide[1:24]
-#nitrogen dioxide
-no2 <- result$hourly_nitrogen_dioxide[1:24]
-#sulphur dioxide
-so2 <- result$hourly_sulphur_dioxide[1:24]
-#ozone
-o3 <- result$hourly_ozone[1:24]
 
 #################### end ########
 body <-  dashboardBody(
