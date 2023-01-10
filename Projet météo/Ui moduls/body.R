@@ -28,8 +28,26 @@ townList <-  c("Paris", "Nice","Strasbourg", "Bordeaux", "Le Havre", "Lille",
                "Angers","Brest","Marseille", "Toulouse", "Nantes", "Montpellier", 
                "Rennes", "Dijon", "Amiens","Rouen")
 
+# Récupération des données par défaut (Paris)
+
+# connexion à la base de données Mongo
+mydatabase <- mongo ("Paris", url="mongodb://127.0.0.1:27017/AKZN")
+# récupérer les données nécessaires
+result <- mydatabase$find( '{}', fields='{"hourly_time": true,"hourly_pm2_5":true,"hourly_carbon_monoxide":true,"hourly_nitrogen_dioxide":true,"hourly_sulphur_dioxide":true,"hourly_ozone":true, "hourly_pm10" : true , "_id" : false }' )
+units <- mydatabase$find('{}', fields='{"hourly_units_european_aqi":true ,"hourly_units_pm10":true, "hourly_units_pm2_5":true, "hourly_units_carbon_monoxide":true ,"hourly_units_nitrogen_dioxide":true, "hourly_units_sulphur_dioxide":true, "hourly_units_ozone":true,"_id" : false}', limit=1)
+resultEAQI <- mydatabase$find('{}', fields='{"hourly_european_aqi":true, "_id" : false}')
 
 
+# récupérer les données du jour
+pm2_5 <- result$hourly_pm2_5[1:24]
+#carbon monoxide
+no <- result$hourly_carbon_monoxide[1:24]
+#nitrogen dioxide
+no2 <- result$hourly_nitrogen_dioxide[1:24]
+#sulphur dioxide
+so2 <- result$hourly_sulphur_dioxide[1:24]
+#ozone
+o3 <- result$hourly_ozone[1:24]
 
 #################### end ########
 body <-  dashboardBody(
@@ -38,12 +56,21 @@ body <-  dashboardBody(
     tabItem(tabName = "dashboard",
             fluidPage(
               fluidRow(
+                 
                 column(width = 4,
                        selectInput("select", label = h5("selectionnez une ville"), 
                                    choices = list("Paris" =2988507, "Strasbourg" =2973783, "Lille"=2998324,
                                                   "Marseille"=2995468, "Nice"=2990439,"Lyon"=2996943,
-                                                  "Bordeaux"=3031582,"Toulouse"=2972315, "Rouen"=2982652), 
+                                                  "Bordeaux"=3031582,"Toulouse"=2972315, "Rouen"=2982652,
+                                                  "Le Havre"=3003796, "Angers"=3037656, "Brest"=6448047,
+                                                  "Nîmes"=2990362, "Montpellier"=2992166, "Rennes"=2983989,
+                                                  "Saint-Étienne"=2980288, "Dijon"=3021372, "Amiens"=3037854), 
                                    selected = 1)
+                       
+               
+                       
+               
+                
                        
                        
                 )
@@ -111,22 +138,26 @@ body <-  dashboardBody(
                                        toupper(si)
                                      ))
                                    }, SIMPLIFY = FALSE, USE.NAMES = FALSE )
-                                 ), 
-                                 width = 250
+                                 ),
+                                 width = 'auto'
+                                  
                      )
                      
                      ##here the pickerInput ends
               ),  #here ends the column
-              
+              column(width= 1),
               
               column(
-                width = 8,
-                offset = 2,
-                align = "center",
+                offset = 1,
+                width = 5,
+                
+               
                 box(
-                  em(h3(textOutput("my_sign"))),
-                  imageOutput("preImage", height = 250, width = 350  ),
-                  background = "navy"
+                  height = "25%", width = "auto", align = "center",
+                   background = "navy", solidHeader = TRUE,
+                   em(h3(textOutput("my_sign"))),
+                   imageOutput("preImage", height = "25%")
+                  
                 ),
               )
               
@@ -135,18 +166,20 @@ body <-  dashboardBody(
             fluidRow(
               column(
                 align = "center",
-                width = 8,
-                offset = 4,
+                width = 5,
+                offset= 4,
                 box( title = strong("Description"),
-                     h3(textOutput("descr")), background = "navy", height = 225)
+                     width = "auto", align = "center",
+                     h3(textOutput("descr")), background = "navy", height = 'auto')
               )
             ),
             
             fluidRow(
+              column(width = 4,infoBoxOutput(width = 12,"pressureBox")) ,
               column(
-                offset = 3,
-                width = 3,
-                infoBoxOutput("compatibility", width = 10),
+                #offset = 3,
+                width = 4,
+                infoBoxOutput("compatibility", width = 12),
                 
               ),
               column(
@@ -202,7 +235,7 @@ body <-  dashboardBody(
             
             fluidRow(
               column(1,NULL) ,
-              column(10,box(background="blue", dateInput("date", "Choose a day , current day + (0, 3) days:", value = Sys.Date(), min=Sys.Date(), max=Sys.Date()+3 ))),
+              column(10,box(background="blue", dateInput("date", "Choose a day , current day + (0, 4) days:", value = Sys.Date(), min=Sys.Date(), max=Sys.Date()+4 ))),
               
               
               
@@ -225,7 +258,7 @@ body <-  dashboardBody(
             fluidRow(
               
               column(8, infoBoxOutput("eaqi", width=4)),
-              
+              #column(tags$img(src="aqi.png", height=230, width="100%", hspace="10")),
             ),
             fluidRow(
               column(width=7,
@@ -234,7 +267,7 @@ body <-  dashboardBody(
                                  is to convert the pollutant concentration into a number between 0 and 500.  The AQIs of 0, 50, 100, 150...500
                                  is referred to as breakpoints.Each AQI breakpoint corresponds to a defined pollution concentration. Using the 
                                  breakpoint value of each pollutant and its ambient concentration the sub index value is calculated. The sub 
-                                 index for a given pollutant is calculated using linear segmented principle. The overall AQI is expressed by the highest sub-index.")),
+                                 index for a given pollutant is calculatedusing linear segmented principle. The overall AQI is expressed by the highest sub-index.")),
               column(5, tags$img(src="aqi.png", height=230, width="100%", hspace="10")),
             ),
             
