@@ -145,7 +145,7 @@ body <-  dashboardBody(
                 offset= 4,
                 box( title = strong("Description"),
                      width = "auto", align = "center",
-                     h3(textOutput("descr")), background = "navy", height = 'auto')
+                     h2(textOutput("descr")), background = "navy", height = 'auto')
               )
             ),
             
