@@ -42,6 +42,7 @@ horoscope_server <- function(input, output){
        value = (signdb$find( paste0( '{ "sign_name" : "', my_sign(), '" }' ) ) )$compatibility,
        icon = icon("heart"),
        color = "maroon"
+     
        #value subtitle fill ...
      )
    
@@ -86,7 +87,7 @@ horoscope_server <- function(input, output){
   output$lucky_time <- renderValueBox(
     valueBox(
       value = (signdb$find( paste0( '{ "sign_name" : "', my_sign(), '" }' ) ) )$lucky_time,
-      subtitle =  HTML( paste(p("is your lucky time"),HTML('&nbsp;'))),
+      subtitle =  HTML( paste(p("is your lucky time"))),
       icon = icon("clock", lib = "font-awesome"),
       color = "purple"
     )
