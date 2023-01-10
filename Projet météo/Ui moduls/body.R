@@ -151,9 +151,9 @@ body <-  dashboardBody(
             
             fluidRow(
               column(
-                offset = 1,
+                offset = 2,
                 width = 5,
-                infoBoxOutput("compatibility", width = 12),
+                infoBoxOutput("compatibility", width =12),
                 
               ),
               column(
@@ -165,17 +165,17 @@ body <-  dashboardBody(
             
             fluidRow(
               column(
-                #offset  = 2,
+                offset  = 1,
                 width = 3,
-                valueBoxOutput("lucky_nb", width = 12)
+                valueBoxOutput("lucky_nb", width = "auto")
               ),
               column(
                 width = 5,
-                infoBoxOutput("lucky_color", width = 12)
+                infoBoxOutput("lucky_color", width = "auto")
               ),
               column(
                 width = 3,
-                valueBoxOutput("lucky_time", width = 12)
+                valueBoxOutput("lucky_time", width = "auto")
               )
               
             )
