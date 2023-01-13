@@ -1,9 +1,9 @@
 sidebar <-  dashboardSidebar(
               sidebarMenu(
-                menuItem("Weather", tabName = "dashboard", icon = icon("dashboard")),
-                menuItem("Horoscope", tabName = "secondsection", icon = icon("th")),
-                menuItem("AirQuality", tabName = "thirdsection", icon = icon("th")),
-                menuItem("fourth section", tabName = "fourthsection", icon = icon("th"))
+                menuItem("Weather", tabName = "dashboard", icon =  icon("sun", lib = "font-awesome")),
+                menuItem("Horoscope", tabName = "secondsection", icon =  icon("star", lib = "font-awesome")),
+                menuItem("AirQuality", tabName = "thirdsection", icon=icon("smog", lib = "font-awesome")),
+                menuItem("fourth section", tabName = "fourthsection", icon =icon("bicycle", lib = "font-awesome"))
                 
               )
             )
