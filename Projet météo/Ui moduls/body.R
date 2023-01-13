@@ -41,13 +41,13 @@ body <-  dashboardBody(
             fluidPage(
               fluidRow(
                 column(width = 4,
-                       selectInput("select", label = h5("selectionnez une ville"), 
+                       selectInput("select", label = h5("Choose a city"), 
                                    choices = list("Paris" =2988507, "Strasbourg" =2973783,
                                                   "Marseille"=2995468, "Nice"=2990439,"Lyon"=2996943,
                                                   "Bordeaux"=3031582,"Toulouse"=2972315, "Rouen"=2982652,
                                                   "Le Havre"=3003796, "Angers"=3037656, "Brest"=6448047,
-                                                   "Montpellier"=2992166, "Rennes"=2983989,
-                                                   "Dijon"=3021372, "Amiens"=3037854), 
+                                                  "Montpellier"=2992166, "Rennes"=2983989,
+                                                  "Dijon"=3021372, "Amiens"=3037854), 
                                    selected = 1)
                        
                        
@@ -58,7 +58,7 @@ body <-  dashboardBody(
                        box(
                          width = 12,
                          
-                         title = "Carte géographique", status = "primary", solidHeader = TRUE,
+                         title = "Map", status = "primary", solidHeader = TRUE,
                          collapsible = TRUE,
                          #below function is used to define a highcharter output plot which will be made in the server side
                          leafletOutput(outputId="map",height = 300)
@@ -90,7 +90,7 @@ body <-  dashboardBody(
                   column(width = 12,
                          box(
                            width = 12,
-                           title = "Prévisions météo à 5 jours", status = "primary", solidHeader = TRUE,
+                           title = "Five days weather forcast", status = "primary", solidHeader = TRUE,
                            collapsible = TRUE,
                            #below function is used to define a highcharter output plot which will be made in the server side
                            highchartOutput("hcontainer")
@@ -253,7 +253,28 @@ body <-  dashboardBody(
     ), 
     tabItem(tabName = "fourthsection",
             fluidPage(
-              h2("content is here")
+              fluidRow(
+                column(width = 4,
+                       selectInput("selectBike", label = h5("Choose a city"), 
+                                   choices = list("IDF" =2988507, "Lyon" =2973783,"Lille" = 2998324,"Toulouse"=2972315), 
+                                   selected = 1)
+                )
+              ),
+              fluidRow(
+                column(width = 12,
+                       plotOutput("AllBikesPlot")
+                )
+              ),
+              fluidRow(
+                column(width = 12,
+                       plotOutput("mBikesPlot")
+                )
+              ),
+              fluidRow(
+                column(width = 12,
+                       plotOutput("eBikesPlot")
+                )
+              ),
             )
     )
     

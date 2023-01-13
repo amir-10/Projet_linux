@@ -157,7 +157,7 @@ output$hcontainer <- renderHighchart({
     hc_exporting(enabled = TRUE) %>% 
     hc_tooltip(crosshairs = TRUE, backgroundColor = "#FCFFC5",
                shared = TRUE, borderWidth = 2) %>%
-    hc_title(text="Hourly weather forcast °C ",align="center") %>%
+    hc_title(text="Hourly weather forecast °C ",align="center") %>%
     
     hc_add_theme(hc_theme_elementary())%>%
     hc_legend(

@@ -17,7 +17,7 @@ source('./Ui moduls/body.R')
 source('./Server moduls/weather_server.R')
 source('./Server moduls/horoscope_server.R')
 source('./Server moduls/airquality_server.R')
-
+source('./Server moduls/Bike_server.R')
 
 
 
@@ -36,6 +36,7 @@ server <- function(input, output, session) {
   weather_server(input,output,session)
   horoscope_server(input,output)
   airquality_server(input,output)
+  Bike_server(input,output,session)
   
   
 }
