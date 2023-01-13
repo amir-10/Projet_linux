@@ -2,18 +2,18 @@
 Ouvrir le script app.R 
 ## Instalation des packages de R en tappont les commandes suivantes sur sa console
 ```R
-Install.packages('shiny')
-Install.packages('shinydashboard')
-Install.packages('mongolite')
-Install.packages('highcharter')
-Install.packages('dplyr')
-Install.packages('httr')
-Install.packages('jsonlite')
-Install.packages('leaflet')
-Install.packages('shinyWidgets')
-Install.packages('maps')
-Install.packages('lubridate')
-Install.packages('plotly')
+install.packages('shiny')
+install.packages('shinydashboard')
+install.packages('mongolite')
+install.packages('highcharter')
+install.packages('dplyr')
+install.packages('httr')
+install.packages('jsonlite')
+install.packages('leaflet')
+install.packages('shinyWidgets')
+install.packages('maps')
+install.packages('lubridate')
+install.packages('plotly')
 ```
 ## Exnvironnement Ubuntu 
 L installation de packages R nécessite des packages ubuntu, qui ne sont pas installés directement avec R
