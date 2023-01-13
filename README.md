@@ -1,7 +1,7 @@
 ## Exécution de l'application web
 
 ## Environnement Ubuntu 
-L installation de packages R nécessite des packages ubuntu, qui ne sont pas installés directement avec R
+L'installation de packages R nécessite des packages ubuntu, qui ne sont pas installés directement avec R
 
 ```bash
 sudo apt-get install  build-essential
@@ -14,7 +14,7 @@ sudo apt-get install libreadline5-dev
 install_packages.R
 
 ## Création de la BDD
-pour le premier lancement il faut exécuter les scripts afin de créer et remplir la BDD nommée AKZN, et par la suite CRON s'occupe de la mettre à jour .
+Pour le premier lancement il faut exécuter les scripts afin de créer et remplir la BDD nommée AKZN, et par la suite CRON s'occupe de la mettre à jour .
 ### les scripts a executer 
 scripts_stockage_mongoDB/DB_airquality.\
 scripts_stockage_mongoDB/DB_currentWeather.\
