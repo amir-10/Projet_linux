@@ -70,7 +70,7 @@ server <- function(input, output, session) {
   data_bikes <- reactive({
     
     id <- strtoi(input$select)
-    BikesCollection = mongo(collection = "Bikes", db = "linuxproject") 
+    BikesCollection = mongo(collection = "Bikes", db = "AKZN") 
     
     if(id == 2988507){#IDF
       
