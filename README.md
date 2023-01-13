@@ -20,7 +20,7 @@ scripts_stockage_mongoDB/DB_airquality.\
 scripts_stockage_mongoDB/DB_currentWeather.\
 scripts_stockage_mongoDB/DB_forcast.\
 scripts_stockage_mongoDB/DB_horoscope.\
-scripts_stockage_mongoDB/DB_bike.\
+scripts_stockage_mongoDB/DB_bike.
 ### les commandes CRON:
 
 
