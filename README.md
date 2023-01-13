@@ -16,11 +16,11 @@ install_packages.R
 ## Création de la BDD
 pour le premier lancement il faut exécuter les scripts afin de créer et remplir la BDD nommée AKZN, et par la suite CRON s'occupe de la mettre à jour .
 ### les scripts a executer 
-scripts_stockage_mongoDB/DB_airquality.
-scripts_stockage_mongoDB/DB_currentWeather.
-scripts_stockage_mongoDB/DB_forcast.
-scripts_stockage_mongoDB/DB_horoscope.
-scripts_stockage_mongoDB/DB_bike.
+scripts_stockage_mongoDB/DB_airquality.\
+scripts_stockage_mongoDB/DB_currentWeather.\
+scripts_stockage_mongoDB/DB_forcast.\
+scripts_stockage_mongoDB/DB_horoscope.\
+scripts_stockage_mongoDB/DB_bike.\
 ### les commandes CRON:
 
 
