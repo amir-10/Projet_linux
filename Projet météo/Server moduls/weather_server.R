@@ -51,7 +51,11 @@ output$map <- renderLeaflet({
   
   weatherIcon= makeIcon(iconUrl=paste0(weather$weather[4]$icon,".svg"),iconWidth=40,iconHeight=40)
   
-  leaflet() %>%
+  leaflet(options = leafletOptions(zoomControl = FALSE)) %>%
+    htmlwidgets::onRender("function(el, x) {
+        L.control.zoom({ position: 'topright' }).addTo(this)
+    }")%>%
+  
     addProviderTiles(providers$Stamen.TonerLite,
                      options = providerTileOptions(noWrap = TRUE)
     ) %>%
@@ -60,7 +64,7 @@ output$map <- renderLeaflet({
                lng =weather$coord$lon,
                icon =weatherIcon,
                popup = paste(
-                 "<b>Ville: </b>",paste0(weather$name), "<br>",
+                 "<b>City: </b>",paste0(weather$name), "<br>",
                  "<b>Weather: </b>",paste0(weather$weather[3]$description),"<br>",
                  "<b>Temperature: </b>",paste0(format(weather$main$temp-273.15, digits = 2), " C","<br>",
                                                "<b>Wind Speed: </b>",paste0(weather$wind$speed), " km/h","<br>",
@@ -86,14 +90,15 @@ output$weatherMainBox <- renderInfoBox({
   weather <- data_current()
   infoBox(
     "Weather main", paste0(weather$weather[3]$description),icon = icon("sun", lib = "font-awesome"),
-    color = "red"
+    color = "red",
+    
   )
 })
 output$feelTempBox <- renderInfoBox({
   invalidateLater(60000, session)
   weather <- data_current()
   infoBox(
-    "Visibilité ", paste0(format(weather$visibility/1000), " Km"), icon = icon("eye", lib = "font-awesome"),
+    "Visibility ", paste0(format(weather$visibility/1000), " Km"), icon = icon("eye", lib = "font-awesome"),
     color = "blue"
   )
 })
@@ -104,7 +109,7 @@ output$pressureBox <- renderInfoBox({
   invalidateLater(60000, session)
   weather <- data_current()
   infoBox(
-    "Pression", paste0(weather$main$pressure, " hpa"), icon = icon("area-chart"),
+    "Pressure", paste0(weather$main$pressure, " hpa"), icon = icon("area-chart"),
     color = "purple", fill = TRUE
   )
 })
@@ -120,7 +125,7 @@ output$windBox <- renderInfoBox({
   invalidateLater(60000, session)
   weather <- data_current()
   infoBox(
-    "Vent", paste0(weather$wind$speed, " Km/h"), icon = icon("wind", lib = "font-awesome"),
+    "Wind", paste0(weather$wind$speed, " Km/h"), icon = icon("wind", lib = "font-awesome"),
     color = "green", fill = TRUE
   )
 })
@@ -146,13 +151,13 @@ output$hcontainer <- renderHighchart({
   #print(d)
   highchart() %>%
     hc_xAxis(categories =date) %>% 
-    hc_add_series(name = "Température", data = température ) |> 
-    hc_add_series(name = "Température minimal", data= températureMax ) |>
-    hc_add_series(name = "Température maximal", data = températureMin ) |>
+    hc_add_series(name = "Temperature", data = température ) |> 
+    hc_add_series(name = "Minimal temperature", data= températureMax ) |>
+    hc_add_series(name = "Maximal temperature", data = températureMin ) |>
     hc_exporting(enabled = TRUE) %>% 
     hc_tooltip(crosshairs = TRUE, backgroundColor = "#FCFFC5",
                shared = TRUE, borderWidth = 2) %>%
-    hc_title(text="Prévision horaire de température °C ",align="center") %>%
+    hc_title(text="Hourly weather forcast °C ",align="center") %>%
     
     hc_add_theme(hc_theme_elementary())%>%
     hc_legend(
