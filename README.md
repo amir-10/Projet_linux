@@ -1,4 +1,5 @@
-## Exécution de l'application web  
+## Exécution de l'application web
+Ouvrir le fichier app  
 ## Instalation des packages R
 ```R
 Install.packages('shiny')
@@ -26,7 +27,7 @@ sudo apt-get libreadline5-dev
 
 ```
 
-une fois les les packages sont bien installes , cliquez sur le button Run ou executer cette comonde sur la console de R
+une fois les packages sont bien installes , cliquez sur le button Run ou executer cette comonde sur la console de R
 
 ```R
 
