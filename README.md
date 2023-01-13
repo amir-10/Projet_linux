@@ -1,5 +1,5 @@
 ## Exécution de l'application web
-Ouvrir le fichier app  
+Ouvrir le script app.R 
 ## Instalation des packages R
 ```R
 Install.packages('shiny')
