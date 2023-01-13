@@ -1,3 +1,4 @@
-## Pour executer l'application web , il faut installer plusieurs library 
+## Exécution de l'application web  
+#
 ```R
 Install.packages('shiny')
