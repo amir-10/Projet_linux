@@ -2,7 +2,9 @@
 signs <- c( 'aries'      , 'taurus'   ,'gemini'   , 'cancer' ,
             'leo'        ,  'virgo'   ,'libra'    , 'scorpio',
             'sagittarius', 'capricorn', 'aquarius', 'pisces')
-
+dates <- c("Mar 21 - Apr 20", "Apr 21 - May 20", "May 21 - Jun 21", "Jun 22 - Jul 22",
+           "Jul 23 - Aug 22", "Aug 23 - Sep 22", "Sep 23 - Oct 22", "Oct 23 - Nov 22",
+           "Nov 23 - Dec 21", "Dec 22 - Jan 19", "Jan 20 - Feb 18", "Feb 19 - Mar 20")
 
 images_cute <- c(
   "aries.png",
@@ -104,14 +106,15 @@ body <-  dashboardBody(
               column(width = 2,
                      align = "center",
                      ##here the pickerInput starts
-                     #selectInput("sign", "Select your sign", signs)
+
                      pickerInput("sign", "sign", 
                                  choices = signs,
                                  choicesOpt = list(
-                                   content = mapply(signs, images_cute, FUN = function(si, im){
+                                   content = mapply(signs, images_cute,dates, FUN = function(si, im,dt){
                                      (paste(
                                        img(src = im, width = 50, height = 40),
-                                       toupper(si)
+                                       toupper(si), 
+                                       "--", dt, "--"
                                      ))
                                    }, SIMPLIFY = FALSE, USE.NAMES = FALSE )
                                  ), 
@@ -143,7 +146,7 @@ body <-  dashboardBody(
                 align = "center",
                 width = 5,
                 offset= 4,
-                box( title = strong("Description"),
+                box( title = strong("Today's Description:"),
                      width = "auto", align = "center",
                      h2(textOutput("descr")), background = "navy", height = 'auto')
               )
