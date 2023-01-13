@@ -70,27 +70,25 @@ server <- function(input, output, session) {
   data_bikes <- reactive({
     
     id <- strtoi(input$select)
+    BikesCollection = mongo(collection = "Bikes", db = "linuxproject") 
     
     if(id == 2988507){#IDF
       
-      col = mongo(collection = "IDF", db = "linuxproject") 
-      tmp = col$find()
+      tmp = BikesCollection$find(query = '{"city" : "IDF"}')
         
-    }else if (id == 2973783){
+    }else if (id == 2973783){#Lyon
       
-      col = mongo(collection = "Lyon", db = "linuxproject") 
-      tmp = col$find()
+      tmp = BikesCollection$find(query = '{"city" : "Lyon"}')
       
-    }else if (id == 2998324){
+    }else if (id == 2998324){#Lille
       
-      col = mongo(collection = "Lille", db = "linuxproject") 
-      tmp = col$find()
+      tmp = BikesCollection$find(query = '{ "city" : "Lille"}')
       
-    }else if(id == 2972315){
+    }else if(id == 2972315){#Toulouse
       
-      col = mongo(collection = "Toulouse", db = "linuxproject") 
-      tmp = col$find()
-    }
+      tmp = BikesCollection$find(query = '{"city" : "Toulouse"}')
+    
+      }
     
   })
   
