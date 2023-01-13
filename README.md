@@ -1,6 +1,6 @@
 ## Exécution de l'application web
 Ouvrir le script app.R 
-## Instalation des packages R
+## Instalation des packages de R en tappont les commandes suivantes sur sa console
 ```R
 Install.packages('shiny')
 Install.packages('shinydashboard')

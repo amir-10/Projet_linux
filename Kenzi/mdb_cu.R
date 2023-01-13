@@ -4,7 +4,7 @@ library(dplyr)
 library(httr)
 library(jsonlite)
 
-Bikes <- mongo(collection = "Bikes", db = "linuxproject")
+Bikes <- mongo(collection = "Bikes", db = "AKZN")
 
 Bikes$remove('{}')
 
