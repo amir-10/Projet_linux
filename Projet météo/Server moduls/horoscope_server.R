@@ -22,11 +22,10 @@ horoscope_server <- function(input, output){
   
   #return the image file i want to show
   output$preImage <- renderImage({
-    # When input$n is 3, filename is ./images/image3.jpeg
     filename <- normalizePath(file.path("stars/",
                                         paste(my_sign(), '.png', sep='')))
     
-    # Return a list containing the filename and alt text
+    # Return a list containing the filename and alternative text
     list(src = filename,
          alt = paste("Selected Sign", my_sign()))
     
