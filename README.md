@@ -26,7 +26,10 @@ sudo apt-get libreadline5-dev
 
 ```
 
+une fois les les packages sont bien installes , cliquez sur le button Run ou executer cette comonde sur la console de R
 
+```R
 
+runApp()
 
-
+```
