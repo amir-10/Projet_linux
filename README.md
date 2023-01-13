@@ -19,6 +19,11 @@ L installation de packages R nécessite des packages ubuntu, qui ne sont pas ins
 
 ```bash
 sudo apt-get install  build-essential
+sudo apt-get gfortran
+sudo apt-get g77
+sudo apt-get tcl8.4-dev
+sudo apt-get libreadline5-dev
+
 ```
 
 
