@@ -24,6 +24,15 @@ scripts_stockage_mongoDB/DB_horoscope.\
 scripts_stockage_mongoDB/DB_bike.
 
 ### les commandes CRON:
+```bash
+0 * * * * Rscript /home/hmel/Documents/Projet_lunux/Projet_météo/scripts_stockage_mongoDB/DB_forcast.R
+
+0 1 * * * Rescript /home/hmel/Documents/Projet_lunux/Projet_météo/scripts_stockage_mongoDB/DB.airquality.R
+
+0 1 * * * Rescript /home/hmel/Documents/Projet_lunux/Projet_météo/scripts_stockage_mongoDB/DB.horoscope.R
+
+0 * * * * Rescript /home/hmel/Documents/Projet_lunux/Projet_météo/scripts_stockage_mongoDB/DB.bike.R
+```
 
 
 ### Lancement de l'application web 
