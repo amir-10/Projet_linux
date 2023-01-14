@@ -1,11 +1,13 @@
-airquality_server <- function(input, output){
+airquality_server <- function(input, output,session){
   
   # Pour mettre à jour
   observe ({
+    invalidateLater(3600000, session)
     
     # récupérer la date sélectionnée par l'utilisateur
     xx <- as.Date(input$date)
     ss <- xx - Sys.Date()
+     
     dd <- as.integer(ss)
     limitLeft <- 1 + 24*dd
     limitRight <- 24 + 24*dd
@@ -82,6 +84,8 @@ airquality_server <- function(input, output){
     
     
     output$plots <- renderPlotly({
+      print("zahrat el kassr")
+       
       #print(pm10)
       plot_ly(
         
@@ -162,12 +166,14 @@ airquality_server <- function(input, output){
     
     output$PM10 <- renderInfoBox({
       
+      
       infoBox(
         "PM10", paste(pm10[currenthour ],result$hourly_units$pm10),
         color = "purple", fill = TRUE,icon = icon("smog")
       )
     })
     output$PM2_5 <- renderInfoBox({
+       
       infoBox(
         "PM2_5",paste( pm2_5[currenthour], result$hourly_units$pm2_5),
         color = "yellow", fill = TRUE,icon = icon("smog"))
@@ -177,11 +183,13 @@ airquality_server <- function(input, output){
     
     output$NO2 <- renderInfoBox({
       
+      
       infoBox(
         "NO2", paste(no2[currenthour],result$hourly_units$nitrogen_dioxide),
         color = "blue", fill = TRUE,icon = icon("smog"))
     })
     output$eaqi <- renderInfoBox({
+     
       infoBox(
         "EAQI",unlist(result$hourly$european_aqi)[currenthour],
         color = "blue", fill = TRUE,icon = icon("wind"))

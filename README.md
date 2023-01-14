@@ -1,14 +1,16 @@
-## Exécution de l'application web
+## Exécution de l'application web  ' Your Daily Dashboard '
 
 ## Environnement Ubuntu 
-L'installation de packages R nécessite des packages ubuntu, qui ne sont pas installés directement avec R
+lors de l'instalation des packages R , nous avons recontré quelques soucis et apres nos recherches nous avons trouvé qu'il fallait  d'abord installer les packages ubuntu suivant :
 
 ```bash
+sudo apt-get update
+
+sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable  # si cette commande ne fonctionne pas parfaitement chez vous , ce n'est pas grave, veuillez poursuivre l'execution le reste des commandes
+sudo apt-get install libudunits2-dev libgdal-dev libgeos-dev libproj-dev
+sudo apt-get install libssl-dev libsasl2-dev
 sudo apt-get install  build-essential
-sudo apt-get install gfortran
-sudo apt-get install g77
-sudo apt-get install tcl8.4-dev
-sudo apt-get install libreadline5-dev
+
 ```
 ## Instalation des packages de R en executant le script suivant
 install_packages.R
@@ -25,13 +27,15 @@ scripts_stockage_mongoDB/DB_bike.
 
 ### les commandes CRON:
 ```bash
+*/3 * * * * Rscript /home/hmel/Documents/Projet_lunux/Projet_météo/scripts_stockage_mongoDB/DB_currentWeather.R
+
 0 * * * * Rscript /home/hmel/Documents/Projet_lunux/Projet_météo/scripts_stockage_mongoDB/DB_forcast.R
 
-0 1 * * * Rescript /home/hmel/Documents/Projet_lunux/Projet_météo/scripts_stockage_mongoDB/DB.airquality.R
+0 * * * * Rescript /home/hmel/Documents/Projet_lunux/Projet_météo/scripts_stockage_mongoDB/DB.airquality.R
 
 0 1 * * * Rescript /home/hmel/Documents/Projet_lunux/Projet_météo/scripts_stockage_mongoDB/DB.horoscope.R
 
-0 * * * * Rescript /home/hmel/Documents/Projet_lunux/Projet_météo/scripts_stockage_mongoDB/DB.bike.R
+*/30 * * * * Rescript /home/hmel/Documents/Projet_lunux/Projet_météo/scripts_stockage_mongoDB/DB.bike.R
 ```
 
 

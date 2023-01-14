@@ -35,7 +35,7 @@ ui <- dashboardPage(
 server <- function(input, output, session) {
   weather_server(input,output,session)
   horoscope_server(input,output)
-  airquality_server(input,output)
+  airquality_server(input,output,session)
   Bike_server(input,output,session)
   
   
