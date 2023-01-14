@@ -1,16 +1,12 @@
-library(shiny)
-library(shinydashboard)
 library(mongolite)
 require(highcharter)
 library(dplyr)
 library(httr)
 library(jsonlite)
 
-date <- Sys.Date()
+Bikes <- mongo(collection = "Bikes", db = "AKZN")
 
-IDF <- mongo(collection = "IDF", db = "AKZN")
-
-IDF$remove('{}')
+Bikes$remove('{}')
 
 res = GET(paste0("https://opendata.paris.fr/api/records/1.0/search/?dataset=velib-disponibilite-en-temps-reel&q=&rows=1000&facet=nom_arrondissement_communes"))
 data = fromJSON(rawToChar(res$content))
@@ -27,12 +23,7 @@ grp_nom_arrondissement_communes <- df %>% group_by(nom_arrondissement_communes) 
             city = "IDF",
             .groups = 'drop'
   )
-IDF$insert(grp_nom_arrondissement_communes)
-
-
-Lyon <- mongo(collection = "Lyon", db = "AKZN")
-
-Lyon$remove('{}')
+Bikes$insert(grp_nom_arrondissement_communes)
 
 res = GET(paste0("https://download.data.grandlyon.com/ws/rdata/jcd_jcdecaux.jcdvelov/all.json?maxfeatures=-1&start=1"))
 data = fromJSON(rawToChar(res$content))
@@ -45,13 +36,9 @@ grp_nom_arrondissement_communes <- df %>% group_by(commune) %>%
             capacity = sum(capacity),
             city="Lyon",
             .groups = 'drop'
-)
-Lyon$insert(grp_nom_arrondissement_communes)
+  )
+Bikes$insert(grp_nom_arrondissement_communes)
 
-
-Lille <- mongo(collection = "Lille", db = "AKZN")
-
-Lille$remove('{}')
 
 res = GET("https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=vlille-realtime&q=&rows=500&facet=libelle&facet=nom&facet=commune&facet=etat&facet=type&facet=etatconnexion")
 data = fromJSON(rawToChar(res$content))
@@ -66,12 +53,8 @@ grp_nom_arrondissement_communes <- df %>% group_by(commune) %>%
     city="Lille",
     .groups = 'drop'
   )
-Lille$insert(grp_nom_arrondissement_communes)
+Bikes$insert(grp_nom_arrondissement_communes)
 
-
-Toulouse <- mongo(collection = "Toulouse", db = "AKZN")
-
-Toulouse$remove('{}')
 
 res = GET("https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=api-velo-toulouse-temps-reel&q=&rows=50")
 data = fromJSON(rawToChar(res$content))
@@ -82,4 +65,4 @@ grp_nom_arrondissement_communes <- df %>% group_by(address) %>%
             city="Toulouse",
             .groups = 'drop'
   )
-Toulouse$insert(grp_nom_arrondissement_communes)
+Bikes$insert(grp_nom_arrondissement_communes)
