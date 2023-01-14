@@ -43,7 +43,7 @@ for ( ville  in townList) {
   
   #Construire l'url et faire appel à 'API OPEN METEO
   
-  url <- paste0("https://air-quality-api.open-meteo.com/v1/air-quality?latitude=",latt,"&longitude=", longg, "&hourly=pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone,european_aqi&start_date=",start_date, "&end_date=", end_date)
+  url <- paste0("https://air-quality-api.open-meteo.com/v1/air-quality?latitude=",latt,"&longitude=", longg, "&hourly=pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone,european_aqi&timezone=Europe%2FBerlin&start_date=",start_date, "&end_date=", end_date)
   res = GET(url)
   
   #Ajouter le nom de la ville aux données récupérées

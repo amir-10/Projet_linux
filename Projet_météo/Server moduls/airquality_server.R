@@ -84,7 +84,7 @@ airquality_server <- function(input, output,session){
     
     
     output$plots <- renderPlotly({
-      print("zahrat el kassr")
+      
        
       #print(pm10)
       plot_ly(
