@@ -51,5 +51,3 @@ runApp()
 https://user-images.githubusercontent.com/73107891/212557610-bd34afb8-b918-4b98-813d-22476c81abac.mp4
 
 
-
-[![Démo sur l'application Web]](https://mega.nz/file/ozgGiBRa#Uoc4-5hxSi35rzLEB-DVSx9-p6ZjfNunLkRb0XD9WzE)
