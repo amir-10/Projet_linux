@@ -1,7 +1,7 @@
 Bike_server <- function(input, output, session) {
   
   data_bikes <- reactive({
-    
+    invalidateLater(1800000, session)
     id <- strtoi(input$selectBike)
     BikesCollection = mongo(collection = "Bikes", db = "AKZN") 
     
@@ -29,6 +29,7 @@ Bike_server <- function(input, output, session) {
   
   output$AllBikesPlot <- renderPlot({
     
+    
     pourcentage <- (data_bikes()$numbikes_available/data_bikes()$capacity)*100
     
     etiquette <- "Percentage of bicycles available by municipality"
@@ -48,6 +49,7 @@ Bike_server <- function(input, output, session) {
   
   output$mBikesPlot <- renderPlot({
     
+    
     if(data_bikes()$city[1] != "Lille" && data_bikes()$city[1] != "Toulouse"){
       
       pourcentage_m <- (data_bikes()$mbike_available/data_bikes()$capacity)*100
@@ -66,6 +68,7 @@ Percentage of mechanical bicycles available by municipality")
   })
   
   output$eBikesPlot <- renderPlot({
+     
     
     if(data_bikes()$city [1] != "Lille" && data_bikes()$city[1] != "Toulouse"){
       
